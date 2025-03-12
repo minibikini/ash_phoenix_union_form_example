@@ -17,11 +17,25 @@ defmodule MyAppWeb.PluginLive.FormComponent do
         phx-change="validate"
         phx-submit="save"
       >
-        <.input field={@form[:name]} type="text" label="Name" /><.input
-          field={@form[:settings]}
-          type="text"
-          label="Settings"
-        />
+        <.input field={@form[:name]} type="text" label="Name" />
+
+        <.inputs_for :let={fc} field={@form[:settings]}>
+          <!-- Dropdown for setting the union type -->
+          <.input
+            field={fc[:_union_type]}
+            phx-change="type-changed"
+            type="select"
+            options={[One: "plugin_one", Two: "plugin_two"]}
+          />
+          
+    <!-- switch on the union type to display a form -->
+          <%= case fc.params["_union_type"] do %>
+            <% "plugin_one" -> %>
+              <.input type="number" label="Size" field={fc[:size]} />
+            <% "plugin_two" -> %>
+              <.input type="number" label="Length" field={fc[:length]} />
+          <% end %>
+        </.inputs_for>
 
         <:actions>
           <.button phx-disable-with="Saving...">Save Plugin</.button>
@@ -42,6 +56,19 @@ defmodule MyAppWeb.PluginLive.FormComponent do
   @impl true
   def handle_event("validate", %{"plugin" => plugin_params}, socket) do
     {:noreply, assign(socket, form: AshPhoenix.Form.validate(socket.assigns.form, plugin_params))}
+  end
+
+  def handle_event("type-changed", %{"_target" => path} = params, socket) do
+    new_type = get_in(params, path)
+    # The last part of the path in this case is the field name
+    path = :lists.droplast(path)
+
+    form =
+      socket.assigns.form
+      |> AshPhoenix.Form.remove_form(path)
+      |> AshPhoenix.Form.add_form(path, params: %{"_union_type" => new_type})
+
+    {:noreply, assign(socket, :form, form)}
   end
 
   def handle_event("save", %{"plugin" => plugin_params}, socket) do
@@ -69,6 +96,7 @@ defmodule MyAppWeb.PluginLive.FormComponent do
         AshPhoenix.Form.for_update(plugin, :update, as: "plugin")
       else
         AshPhoenix.Form.for_create(MyApp.Plugins.Plugin, :create, as: "plugin")
+        |> AshPhoenix.Form.add_form(:settings, params: %{"_union_type" => "plugin_one"})
       end
 
     assign(socket, form: to_form(form))
