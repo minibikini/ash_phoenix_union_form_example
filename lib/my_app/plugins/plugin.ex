@@ -8,7 +8,12 @@ defmodule MyApp.Plugins.Plugin do
   attributes do
     uuid_primary_key :id
 
-    attribute :name, :string
-    attribute :settings, :plugin_settings
+    attribute :name, :string do
+      public? true
+    end
+
+    attribute :settings, :plugin_settings do
+      public? true
+    end
   end
 end
