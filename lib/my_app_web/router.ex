@@ -17,6 +17,13 @@ defmodule MyAppWeb.Router do
   scope "/", MyAppWeb do
     pipe_through :browser
 
+    live "/plugins", PluginLive.Index, :index
+    live "/plugins/new", PluginLive.Index, :new
+    live "/plugins/:id/edit", PluginLive.Index, :edit
+
+    live "/plugins/:id", PluginLive.Show, :show
+    live "/plugins/:id/show/edit", PluginLive.Show, :edit
+
     get "/", PageController, :home
   end
 
