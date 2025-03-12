@@ -7,7 +7,10 @@ defmodule MyApp.PluginSettingsType do
     end
 
     attributes do
-      attribute :size, :integer, default: 1
+      attribute :size, :integer do
+        default 1
+        public? true
+      end
     end
   end
 
@@ -19,7 +22,10 @@ defmodule MyApp.PluginSettingsType do
     end
 
     attributes do
-      attribute :length, :integer, default: 1
+      attribute :length, :integer do
+        default 1
+        public? true
+      end
     end
   end
 
