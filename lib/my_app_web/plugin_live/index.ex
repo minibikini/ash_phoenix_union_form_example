@@ -22,7 +22,7 @@ defmodule MyAppWeb.PluginLive.Index do
 
       <:col :let={{_id, plugin}} label="Name">{plugin.name}</:col>
 
-      <:col :let={{_id, plugin}} label="Settings">{plugin.settings}</:col>
+      <:col :let={{_id, plugin}} label="Settings">{inspect(plugin.settings)}</:col>
 
       <:action :let={{_id, plugin}}>
         <div class="sr-only">

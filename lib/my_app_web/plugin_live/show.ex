@@ -20,7 +20,7 @@ defmodule MyAppWeb.PluginLive.Show do
 
       <:item title="Name">{@plugin.name}</:item>
 
-      <:item title="Settings">{@plugin.settings}</:item>
+      <:item title="Settings">{inspect(@plugin.settings)}</:item>
     </.list>
 
     <.back navigate={~p"/plugins"}>Back to plugins</.back>
