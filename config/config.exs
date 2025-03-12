@@ -12,6 +12,9 @@ config :ash,
   include_embedded_source_by_default?: false,
   show_keysets_for_all_actions?: false,
   default_page_type: :keyset,
+  custom_types: [
+    plugin_settings: MyApp.PluginSettingsType
+  ],
   policies: [no_filter_static_forbidden_reads?: false]
 
 config :spark,
@@ -38,8 +41,7 @@ config :spark,
     "Ash.Domain": [section_order: [:resources, :policies, :authorization, :domain, :execution]]
   ]
 
-config :my_app,
-  generators: [timestamp_type: :utc_datetime]
+config :my_app, generators: [timestamp_type: :utc_datetime], ash_domains: [MyApp.Plugins]
 
 # Configures the endpoint
 config :my_app, MyAppWeb.Endpoint,
