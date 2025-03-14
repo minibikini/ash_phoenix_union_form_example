@@ -22,6 +22,7 @@ config :spark,
     remove_parens?: true,
     "Ash.Resource": [
       section_order: [
+        :postgres,
         :resource,
         :code_interface,
         :actions,
@@ -41,7 +42,10 @@ config :spark,
     "Ash.Domain": [section_order: [:resources, :policies, :authorization, :domain, :execution]]
   ]
 
-config :my_app, generators: [timestamp_type: :utc_datetime], ash_domains: [MyApp.Plugins]
+config :my_app,
+  generators: [timestamp_type: :utc_datetime],
+  ash_domains: [MyApp.Plugins],
+  ecto_repos: [MyApp.Repo]
 
 # Configures the endpoint
 config :my_app, MyAppWeb.Endpoint,

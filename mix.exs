@@ -33,6 +33,7 @@ defmodule MyApp.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:ash_postgres, "~> 2.0"},
       {:ash_phoenix, "~> 2.0"},
       {:sourceror, "~> 1.7", only: [:dev, :test]},
       {:ash, "~> 3.0"},
@@ -78,7 +79,8 @@ defmodule MyApp.MixProject do
         "tailwind my_app --minify",
         "esbuild my_app --minify",
         "phx.digest"
-      ]
+      ],
+      test: ["ash.setup --quiet", "test"]
     ]
   end
 end

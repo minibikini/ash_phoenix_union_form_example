@@ -50,6 +50,17 @@ if config_env() == :prod do
     ],
     secret_key_base: secret_key_base
 
+  database_url =
+    System.get_env("DATABASE_URL") ||
+      raise """
+      environment variable DATABASE_URL is missing.
+      For example: ecto://USER:PASS@HOST/DATABASE
+      """
+
+  config :my_app, MyApp.Repo,
+    url: database_url,
+    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
+
   # ## SSL Support
   #
   # To get SSL working, you will need to add the `https` key
