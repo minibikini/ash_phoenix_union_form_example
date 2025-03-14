@@ -1,5 +1,10 @@
 defmodule MyApp.Plugins.Plugin do
-  use Ash.Resource, otp_app: :my_app, domain: MyApp.Plugins, data_layer: Ash.DataLayer.Ets
+  use Ash.Resource, otp_app: :my_app, domain: MyApp.Plugins, data_layer: AshPostgres.DataLayer
+
+  postgres do
+    table "plugins"
+    repo MyApp.Repo
+  end
 
   actions do
     defaults [:read, :destroy, create: :*, update: :*]
