@@ -2,6 +2,11 @@
 
 This repository demonstrates how to implement and use [Union Forms](https://hexdocs.pm/ash_phoenix/union-forms.html) in Ash Framework with Phoenix LiveView. Union type in Ash allow you to create fields that can contain different types of data structures.
 
+## Branches
+
+- **[`main`](https://github.com/minibikini/ash_phoenix_union_form_example/tree/main)**: Implementation using `Ash.DataLayer.Ets` data layer
+- **[`postgres`](https://github.com/minibikini/ash_phoenix_union_form_example/tree/postgres)**: Implementation using `AshPostgres.DataLayer` for PostgreSQL
+
 ## What are Union Forms?
 
 Union Forms in Ash Phoenix allow you to:
