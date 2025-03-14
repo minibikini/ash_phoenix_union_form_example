@@ -2,7 +2,12 @@ defmodule MyApp.Plugins.Plugin do
   use Ash.Resource, otp_app: :my_app, domain: MyApp.Plugins, data_layer: Ash.DataLayer.Ets
 
   actions do
-    defaults [:read, :destroy, create: :*, update: :*]
+    # defaults [:read, :destroy, create: :*, update: :*]
+    defaults [:read, :destroy, create: :*]
+
+    update :update do
+      accept [:*]
+    end
   end
 
   attributes do
