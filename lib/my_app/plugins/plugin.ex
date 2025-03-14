@@ -7,7 +7,12 @@ defmodule MyApp.Plugins.Plugin do
   end
 
   actions do
-    defaults [:read, :destroy, create: :*, update: :*]
+    # defaults [:read, :destroy, create: :*, update: :*]
+    defaults [:read, :destroy, create: :*]
+
+    update :update do
+      accept [:*]
+    end
   end
 
   attributes do
